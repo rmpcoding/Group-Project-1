@@ -1,15 +1,66 @@
 var queryUrl = ``;
-var apiKey = "aHkqsjR1dKZWFLgP0Gi2UWDs6bxVPQbi3u8XZln7KlCQ34n6bL";
-var secret = "Cwz6rXEhF4zlSmWitUGuPZiy6sHA5xNxKTTsKW5Z";
+var apiKey = "b2f634b8-1529-4758-9cf5-7ceeac32b0a9"; //rescuepets.org key
+var search = "";
 
-var pf = new petfinder.Client({apiKey: "my-api-key", secret: "my-api-secret"});
 
-pf.animal.search()
-    .then(function (response) {
-        // Do something with `response.data.animals`
-    })
-    .catch(function (error) {
-        // Handle the error
-    });
+var addRequest = {
+  token: token,
+  tokenHash: hash,
+  objectType: "animalBreeds",
+  objectAction: "publicSearch",
+  search:
+  {
+      resultsStart: "0",
+      resultsLimit: "100",
+      resultSort: "breedName",
+      resultOrder: "asc",
+      filters:
+      [
+          {
+              fieldName: "breedSpecies",
+              operation: "equals",
+              criteria: "Cat"
+          }
+      ],
 
-console.log(pf);
+  filterProcessing: "1",
+  fields:
+  ["breedID", "breedName", "breedSpecies", "breedSpeciesID"]
+
+  }
+}
+  //console.log(addRequest);
+  
+
+  let addarray = JSON.stringify(addRequest);
+  let Response = await fetch(url, {
+      "method": "post",
+      "header": "Content-Type: application/json",
+      "body": addarray
+  })
+  let json2 = await Response.json();
+  let response2 = JSON.stringify(json2);
+  let animalList = json2.data;
+
+
+
+  // ___________
+
+
+// this is the snippet code from their website:
+
+
+var thing = {"apikey":apiKey,"objectType":"animals","objectAction":"publicSearch","search":{"calcFoundRows":"Yes","resultStart":0,"resultLimit":10,"fields":["animalName"],"filters":[{"fieldName":"animalStatus","operation":"equals","criteria":"Adopted"},{"fieldName":"animalOrgID","operation":"equals","criteria":"****"}]}};
+var encoded = $.toJSON(thing)
+ 
+$.ajax({
+  url: "https://api.rescuegroups.org/http/json/?data=" + encoded, 
+  dataType: "jsonp",
+  success: function(data) {
+        if (data.foundRows) document.getElementById('adoptedPetsCount').innerHTML = data.foundRows;
+  },
+  error: function(xhr, status, error) {
+    console.log('error');
+  }
+});
+
