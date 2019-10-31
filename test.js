@@ -1,10 +1,11 @@
 var apiKey = "Y8vTljiG";
 var queryUrl = "https://api.rescuegroups.org/http/v2.json";
 
-// male/female
-// dog/cat
-// radius
-// zipcode
+var gender;
+var animal = "dog";
+var radius = 100;
+var zipcode = 90210; 
+var animalZipcode;
 
 var dataObject = {
   apikey: "Y8vTljiG",
@@ -33,9 +34,6 @@ var dataObject = {
   }
 };
 
-var dog = "dog"; // will ultimately erase and use dropDownAnimal
-var cat = "cat"; // will ultimately erase and use dropDownAnimal
-var dropDownAnimal = ""; // push dropdown value (dog or cat) into the variable
 
 // test section
 var apiObject = {
@@ -54,17 +52,29 @@ var apiObject = {
       "animalName",
       "animalSpecies",
       "animalBreed",
-      "animalThumbnailUrl"
+      "animalThumbnailUrl",
+      "locationCity"
     ],
     filters: [
-      { fieldName: "animalSpecies", 
+      { 
+        fieldName: "animalSpecies", 
         operation: "equals", 
-        criteria: dog },
+        criteria: animal 
+      },
       {
         fieldName: "animalStatus",
         operation: "equals",
         criteria: "Available"
-      }
+      },
+      // { 
+      //   fieldName: "locationDistance",
+      //   operation: "radius",
+      //   criteria: radius 
+      // },
+      // { 
+      //   fieldName: "locationPostalcode",
+      //   operation: "equals",
+      //   criteria: zipcode }
     ]
   }
 };
@@ -74,12 +84,6 @@ var apiObject = {
 //   operation: "equals",
 //   criteria: cat
 // }
-// { fieldName: "orgLocationDistance",
-//   operation: "radius",
-//   criteria: 90 },
-//  { fieldName: "orgLocation",
-//     operation: "equals",
-//     locationPostalcode: 90210 }
 
 var data = JSON.stringify(apiObject);
 
@@ -94,6 +98,5 @@ $("#test-display").on("click", function() {
     var petValues = Object.values(response.data)
     console.log(response);
     console.log(petValues[0]);
-
   });
 });
