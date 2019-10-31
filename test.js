@@ -55,7 +55,8 @@ var apiObject = {
       "animalThumbnailUrl",
       "animalSex",
       "animalLocation",
-      "animalLocationCitystate"
+      "animalLocationCitystate",
+      "animalGeneralAge"
     ],
     filters: [
       { 
@@ -108,3 +109,29 @@ $("#test-display").on("click", function() {
     console.log(petValues[0]);
   });
 });
+
+
+var apiZipKey = "xuJXW9n14NfvKNEH2vMeXEL5yW5zQSCCzdRPdKcW5yT2y03dZUY54aaWGRBxkoke";
+var apiZipFormat = "json";
+var apiZipZipcode = "90210";
+var apiZipUnit = "degrees";
+
+var apiZipcodeUrl = "https://cors-anywhere.herokuapp.com/https://www.zipcodeapi.com/rest/";
+
+var zipBuild = apiZipcodeUrl + apiZipKey + "/info." + apiZipFormat + "/" + apiZipZipcode + "/" + apiZipUnit;
+
+console.log(zipBuild);
+
+
+
+$("#test-display").on("click", function() {
+  $.ajax({
+    url: zipBuild,
+    method: "GET"
+  }).then(function(response) {
+
+    console.log(response);
+
+  });
+});
+
