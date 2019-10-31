@@ -53,7 +53,8 @@ var apiObject = {
       "animalSpecies",
       "animalBreed",
       "animalThumbnailUrl",
-      "locationCity"
+      "animalSex",
+      "animalLocation"
     ],
     filters: [
       { 
@@ -66,15 +67,16 @@ var apiObject = {
         operation: "equals",
         criteria: "Available"
       },
-      // { 
-      //   fieldName: "locationDistance",
-      //   operation: "radius",
-      //   criteria: radius 
-      // },
-      // { 
-      //   fieldName: "locationPostalcode",
-      //   operation: "equals",
-      //   criteria: zipcode }
+      { 
+        fieldName: "animalSex", 
+        operation: "equals", 
+        criteria: "male" 
+      },
+      { 
+        fieldName: "animalLocation",
+        operation: "radius",
+        criteria: zipcode 
+      }
     ]
   }
 };
