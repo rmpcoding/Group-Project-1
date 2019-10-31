@@ -1,15 +1,25 @@
-var queryUrl = ``;
-var apiKey = "aHkqsjR1dKZWFLgP0Gi2UWDs6bxVPQbi3u8XZln7KlCQ34n6bL";
-var secret = "Cwz6rXEhF4zlSmWitUGuPZiy6sHA5xNxKTTsKW5Z";
+$(document).ready(function () {
 
-var pf = new petfinder.Client({apiKey: "my-api-key", secret: "my-api-secret"});
+  var queryUrl = "https://cors-anywhere.herokuapp.com/https://api.openstreetmap.org/";
+  
+      $.ajax({
+          url: queryUrl,
+          method: "GET"
+        }).then(function (response) {
+              console.log(response);
+          
+        });
+      });
 
-pf.animal.search()
-    .then(function (response) {
-        // Do something with `response.data.animals`
-    })
-    .catch(function (error) {
-        // Handle the error
-    });
+// Where you want to render the map.
+var element = document.getElementById('map');
+element.style = 'height:300px;';
+var map = L.map(element);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
 
-console.log(pf);
+// Target's GPS coordinates.
+var target = L.latLng('47.50737', '19.04611');
+map.setView(target, 14);
+L.marker(target).addTo(map);
