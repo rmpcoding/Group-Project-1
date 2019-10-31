@@ -23,3 +23,6 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 var target = L.latLng('47.50737', '19.04611');
 map.setView(target, 14);
 L.marker(target).addTo(map);
+
+
+
