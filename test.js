@@ -7,32 +7,32 @@ var radius = 100;
 var zipcode = 90210; 
 var animalZipcode;
 
-var dataObject = {
-  apikey: "Y8vTljiG",
-  objectType: "animals",
-  objectAction: "publicSearch",
-  search: {
-    calcFoundRows: "Yes",
-    resultStart: 0,
-    resultLimit: 20,
-    resultSort: "animalID",
-    fields: [
-      "animalID",
-      "animalOrgID",
-      "animalName",
-      "animalSpecies",
-      "animalBreed",
-      "animalThumbnailUrl"
-    ],
-    filters: [
-      {
-        fieldName: "animalStatus",
-        operation: "equals",
-        criteria: "Available"
-      }
-    ]
-  }
-};
+// var dataObject = {
+//   apikey: "Y8vTljiG",
+//   objectType: "animals",
+//   objectAction: "publicSearch",
+//   search: {
+//     calcFoundRows: "Yes",
+//     resultStart: 0,
+//     resultLimit: 20,
+//     resultSort: "animalID",
+//     fields: [
+//       "animalID",
+//       "animalOrgID",
+//       "animalName",
+//       "animalSpecies",
+//       "animalBreed",
+//       "animalThumbnailUrl",
+//     ],
+//     filters: [
+//       {
+//         fieldName: "animalStatus",
+//         operation: "equals",
+//         criteria: "Available"
+//       }
+//     ]
+//   }
+// };
 
 
 // test section
@@ -54,7 +54,8 @@ var apiObject = {
       "animalBreed",
       "animalThumbnailUrl",
       "animalSex",
-      "animalLocation"
+      "animalLocation",
+      "animalLocationCitystate"
     ],
     filters: [
       { 
@@ -74,8 +75,13 @@ var apiObject = {
       },
       { 
         fieldName: "animalLocation",
-        operation: "radius",
+        operation: "equals",
         criteria: zipcode 
+      },
+      { 
+        fieldName: "animalLocationDistance",
+        operation: "radius",
+        criteria: 5 
       }
     ]
   }
