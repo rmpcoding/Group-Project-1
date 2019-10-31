@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
   var queryUrl = "https://cors-anywhere.herokuapp.com/https://api.openstreetmap.org/";
   
       $.ajax({
