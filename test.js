@@ -7,34 +7,6 @@ var radius = 100;
 var zipcode = 90210; 
 var animalZipcode;
 
-// var dataObject = {
-//   apikey: "Y8vTljiG",
-//   objectType: "animals",
-//   objectAction: "publicSearch",
-//   search: {
-//     calcFoundRows: "Yes",
-//     resultStart: 0,
-//     resultLimit: 20,
-//     resultSort: "animalID",
-//     fields: [
-//       "animalID",
-//       "animalOrgID",
-//       "animalName",
-//       "animalSpecies",
-//       "animalBreed",
-//       "animalThumbnailUrl",
-//     ],
-//     filters: [
-//       {
-//         fieldName: "animalStatus",
-//         operation: "equals",
-//         criteria: "Available"
-//       }
-//     ]
-//   }
-// };
-
-
 // test section
 var apiObject = {
   apikey: "Y8vTljiG",
@@ -52,11 +24,12 @@ var apiObject = {
       "animalName",
       "animalSpecies",
       "animalBreed",
-      "animalThumbnailUrl",
+      "animalUrl",
       "animalSex",
       "animalLocation",
       "animalLocationCitystate",
-      "animalGeneralAge"
+      "animalGeneralAge",
+      "animalPictures"
     ],
     filters: [
       { 
@@ -88,11 +61,6 @@ var apiObject = {
   }
 };
 
-// test section
-// { fieldName: "animalSpecies",
-//   operation: "equals",
-//   criteria: cat
-// }
 
 var data = JSON.stringify(apiObject);
 
@@ -105,33 +73,49 @@ $("#test-display").on("click", function() {
     data
   }).then(function(response) {
     var petValues = Object.values(response.data)
+    var petLocation = petValues[0].animalLocation
+    var photo = petValues[0].animalPictures[0].urlSecureFullsize
+    var breed = petValues[0].animalBreed
+    var city = petValues[0].animalLocationCitystate
+    var name = petValues[0].animalName
+    var sex = petValues[0].animalSex
+    $('#photo').prepend(`<img src="${photo}">`)
+    $("#name").html("Name: " + name)
+    $("#breed").html("Breed: " + breed)
+    $("#city").html("City: " + city)
+    $("#location").html("Location: " + petLocation)
+    $("#sex").html("Sex: " + sex)
+    // need to add dummy link
+    $("#url").html("URL: " + )
+
     console.log(response);
-    console.log(petValues[0]);
+    console.log(photo);
   });
 });
 
 
 var apiZipKey = "xuJXW9n14NfvKNEH2vMeXEL5yW5zQSCCzdRPdKcW5yT2y03dZUY54aaWGRBxkoke";
-var apiZipFormat = "json";
+// we need to get zip code that is same as petLocation from RescueGroups API
 var apiZipZipcode = "90210";
-var apiZipUnit = "degrees";
-
 var apiZipcodeUrl = "https://cors-anywhere.herokuapp.com/https://www.zipcodeapi.com/rest/";
 
-var zipBuild = apiZipcodeUrl + apiZipKey + "/info." + apiZipFormat + "/" + apiZipZipcode + "/" + apiZipUnit;
+var zipBuild = apiZipcodeUrl + apiZipKey + "/info.json/" + apiZipZipcode + "/degrees";
 
 console.log(zipBuild);
 
+var coordinates = {};
 
-
-$("#test-display").on("click", function() {
+$("#test-display").on("click", function zipcodeConverter() {
   $.ajax({
     url: zipBuild,
     method: "GET"
   }).then(function(response) {
-
-    console.log(response);
+    var latitude = response.lat
+    var longitude = response.lng
+    coordinates.latitude = latitude
+    coordinates.longitude = longitude
 
   });
+
 });
 

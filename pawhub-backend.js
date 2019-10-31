@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 var queryUrl = `https://api.rescuegroups.org/http/v2.json`; // https://api.rescuegroups.org/http/v2.json
 var apiKey = "Y8vTljiG"; //rescuepets.org key
 var search = "";
@@ -96,3 +97,30 @@ $.ajax({
 //   { fieldName: "animalStatus", operation: "equals", criteria: "Adopted" },
 //   { fieldName: "animalOrgID", operation: "equals", criteria: "****" }
 // ]
+=======
+$(document).ready(function () {
+
+  var queryUrl = "https://cors-anywhere.herokuapp.com/https://api.openstreetmap.org/";
+  
+      $.ajax({
+          url: queryUrl,
+          method: "GET"
+        }).then(function (response) {
+              console.log(response);
+          
+        });
+      });
+
+// Where you want to render the map.
+var element = document.getElementById('map');
+element.style = 'height:300px;';
+var map = L.map(element);
+L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+}).addTo(map);
+
+// Target's GPS coordinates.
+var target = L.latLng('47.50737', '19.04611');
+map.setView(target, 14);
+L.marker(target).addTo(map);
+>>>>>>> 171acc3c422f66ede1a334de88c5273b179859ba
