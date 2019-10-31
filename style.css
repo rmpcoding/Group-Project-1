@@ -1,0 +1,41 @@
+.brand-logo {
+    margin-left: 10px;
+
+}
+
+.dropdown-trigger {
+    background-color: brown;
+}
+
+.carousel {
+    border-radius: 20px;
+    /* border: 5px solid black; */
+}
+
+.input-field{
+    margin: 5px;
+}
+
+.nav-wrapper {
+    background-color: #3a9199;
+    border-bottom: solid 5px #166168;
+}
+
+body {
+    background-image:url("doglake.jpeg");
+    background-size: 100%;
+}
+
+.container {
+    background-color: #6fdde6;
+    opacity: .90;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 95%;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin: 20px;
+}
