@@ -3,9 +3,17 @@
 
 }
 
+.dropdown-trigger {
+    background-color: brown;
+}
+
 .carousel {
     border-radius: 20px;
-    border: 5px solid black;
+    /* border: 5px solid black; */
+}
+
+.input-field{
+    margin: 5px;
 }
 
 .nav-wrapper {
