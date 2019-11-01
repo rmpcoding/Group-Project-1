@@ -2,6 +2,10 @@
     margin-left: 10px;
 
 }
+#logo {
+    width: 64px !important;
+    height: 64px;
+}
 
 .dropdown-trigger {
     background-color: brown;

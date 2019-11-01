@@ -76,26 +76,31 @@ function searchVar() {
     method: "POST",
     data
 //Pushing API data to the HTML & retrieving pet zipcode
-  }).then(function (response) {
-    var petValues = Object.values(response.data)
-    //understood this is for one animal - need to make this loop through all modals
-    petZip = petValues[0].animalLocation
-    var photo = petValues[0].animalPictures[0].urlSecureFullsize
-    var breed = petValues[0].animalBreed
-    var city = petValues[0].animalLocationCitystate
-    var name = petValues[0].animalName
-    var sex = petValues[0].animalSex
-    //could work to use to cycle through modals 
-    $(".petImg").append(`<img src="${photo}">`)
-    $(".name").html(name)
+}).then(function (response) {
+  var petValues = Object.values(response.data)
+  //understood this is for one animal - need to make this loop through all modals
+  for (let i = 0; i < 10; i++) {
+  petZip = petValues[i].animalLocation
+  let photoUrl = petValues[i].animalPictures[0].urlSecureFullsize
+  var breed = petValues[i].animalBreed
+  var city = petValues[i].animalLocationCitystate
+  var name = petValues[i].animalName
+  var sex = petValues[i].animalSex
+
+  var photo = $(`<img src="${photoUrl}">`)
+  console.log(photoUrl)
+  var a = $(`.${i}`);
+
+    a.html(name)
+    a.append(photo)
     $(".anBreed").html("Breed: " + breed)
     $(".anCity").html("City: " + city)
     $(".anLocation").html("Location: " + petZip)
-    $(".anSex").html("Sex: " + sex)
-    zipcodeConverter();
-    console.log(petZip);
-    console.log(petValues);
-  });
+    $(".anSex").html("Sex: " + sex)   
+  }
+  zipcodeConverter();
+  console.log(petZip);
+});
 
 //Beginning of zipcode converting API
   var apiZipKey = "xuJXW9n14NfvKNEH2vMeXEL5yW5zQSCCzdRPdKcW5yT2y03dZUY54aaWGRBxkoke";
