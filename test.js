@@ -78,12 +78,14 @@ function searchVar() {
 //Pushing API data to the HTML & retrieving pet zipcode
   }).then(function (response) {
     var petValues = Object.values(response.data)
+    //understood this is for one animal - need to make this loop through all modals
     petZip = petValues[0].animalLocation
     var photo = petValues[0].animalPictures[0].urlSecureFullsize
     var breed = petValues[0].animalBreed
     var city = petValues[0].animalLocationCitystate
     var name = petValues[0].animalName
     var sex = petValues[0].animalSex
+    //could work to use to cycle through modals 
     $(".petImg").append(`<img src="${photo}">`)
     $(".name").html(name)
     $(".anBreed").html("Breed: " + breed)
@@ -92,6 +94,7 @@ function searchVar() {
     $(".anSex").html("Sex: " + sex)
     zipcodeConverter();
     console.log(petZip);
+    console.log(petValues);
   });
 
 //Beginning of zipcode converting API
@@ -101,7 +104,7 @@ function searchVar() {
   var latitude;
   var longitude;
 
-//Converting pet zipcode to be lat/long coordinates
+//Converting pet zipcode to be lat/long coordinates through second Zip Code API
   function zipcodeConverter() {
     var zipBuild = apiZipcodeUrl + apiZipKey + "/info.json/" + petZip + "/degrees";
     $.ajax({
@@ -110,33 +113,28 @@ function searchVar() {
     }).then(function (response) {
       latitude = response.lat
       longitude = response.lng
-
+      mapMarker();
       console.log(latitude, longitude)
     });
   };
 
-  var queryUrl = "https://cors-anywhere.herokuapp.com/https://api.openstreetmap.org/";
-  
+  //taking coordinates and running through third map API to identify marker
+  var mapQueryUrl = "https://cors-anywhere.herokuapp.com/https://api.openstreetmap.org/";
+  function mapMarker() {
       $.ajax({
-          url: queryUrl,
+          url: mapQueryUrl,
           method: "GET"
         }).then(function (response) {
-              console.log(response);
+            var element = document.getElementById('map');
+            element.style = "height:200px;";
+            var map = L.map(element);
+            L.tileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+              attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
           
+            var target = L.latLng(latitude, longitude);
+            map.setView(target, 7);
+            L.marker(target).addTo(map);
         });
-
-// Where you want to render the map.
-var element = document.getElementById('map');
-element.style = 'height:300px;';
-var map = L.map(element);
-L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(map);
-
-// Target's GPS coordinates.
-var target = L.latLng('47.50737', '19.04611');
-map.setView(target, 14);
-L.marker(target).addTo(map);
-
-
-}
+      };
+};
